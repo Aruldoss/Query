@@ -1,0 +1,224 @@
+
+package com.aeq.snowflake;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+
+public class SnowFlakeQuery {
+	 BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+	
+
+	String qry1 = "SELECT Name,age FROM Studentdetail INNERJOIN StudentMarks ON Studentdetail.id = StudentMarks.id";
+
+	String qry = qry1.toLowerCase();
+
+	ArrayList al = new ArrayList(Arrays.asList(qry.split(" "))); //query split by space
+
+	ArrayList ar = new ArrayList();   //columns
+
+	ArrayList arl = new ArrayList();  //tables
+
+	/*LinkedHashMap<String, String> lhm = new LinkedHashMap<String, String>();
+	LinkedHashMap<String, String> lh = new LinkedHashMap<String, String>();*/
+
+	void select() {
+		String check = "select";
+
+		int select = al.indexOf("select");
+		int selectadd = select + 1;
+
+		String arcl = (String) al.get(selectadd);
+
+		// System.out.println("Columns Name:- " + arcl);
+		ar.add(arcl);
+		
+
+	}
+
+	void from() {
+		int from = al.indexOf("from");
+		int fromad = from + 1;
+		String arlta = (String) al.get(fromad);
+		// System.out.println("table Name:- " + arlta);
+		arl.add(arlta);
+		
+	}
+
+	/*void join() {
+		int join = al.indexOf("join");
+		int joinad = join + 1;
+		// int joinadd = join - 1;
+		String arlta = (String) al.get(joinad);
+		// System.out.println("table Name:- "+arlta);
+		arl.add(arlta);
+
+	}*/
+
+	void ijoin() {
+		int ijoin = al.indexOf("innerjoin");
+		int ijoinad = ijoin + 1;
+		// int ijoinadd = ijoin - 1;
+		String arlta = (String) al.get(ijoinad);
+		// System.out.println("table Name:- " +arlta);
+		arl.add(arlta);
+	}
+
+	void ojoin() {
+		int ojoin = al.indexOf("outerjoin");
+		int ojoinad = ojoin + 1;
+		// int ojoinadd = ojoin - 1;
+		String arlta = (String) al.get(ojoinad);
+		// System.out.println("table Name:- " +arlta);
+		arl.add(arlta);
+	}
+
+	void ljoin() {
+
+		int ljoin = al.indexOf("leftjoin");
+		int ljoinad = ljoin + 1;
+		// int ljoinadd = ljoin - 1;
+		String arlta = (String) al.get(ljoinad);
+		// System.out.println("table Name:- " +arlta);
+		arl.add(arlta);
+	}
+
+	void rjoin() {
+		int rjoin = al.indexOf("rightjoin");
+		int rjoinad = rjoin + 1;
+		// int rjoinadd = rjoin - 1;
+		String arlta = (String) al.get(rjoinad);
+		// System.out.println("table Name:- " +arlta);
+		arl.add(arlta);
+	}
+
+	void union() {
+		int union = al.indexOf("union");
+		int unionad = union + 1;
+		int unionadd = union - 1;
+	}
+
+	void where() {
+
+		int where = al.indexOf("where");
+		int wheread = where + 1;
+		String arcl = (String) al.get(wheread);
+		// System.out.println("Columns Name:- " + arcl);
+		ar.add(arcl);
+	}
+
+	void and() {
+		int and = al.indexOf("and");
+		int andad = and + 1;
+		String arcl = (String) al.get(andad);
+		// System.out.println("Columns Name:- " +arcl);
+	}
+
+	/*
+	   void or() { 
+	   int or = al.indexOf("or"); int orad = or + 1;
+	   System.out.println("Columns Name:-  " + al.get(orad));
+	    }
+	  */
+
+	void on() {
+		int on = al.indexOf("on");
+		int onad = on + 1;
+		String arcl = (String) al.get(onad);
+		// System.out.println("Columns Name:- " + arcl);
+		ar.add(arcl);
+
+	}
+
+	/*
+	 * void by() { int by = al.indexOf("by"); int byad = by + 1; }
+	 */
+
+	void equal() {
+
+		int equal = al.indexOf("=");
+		int equalad = equal + 1;
+		// int equaladd=equal-1;
+		String arcl = (String) al.get(equalad);
+		// System.out.println("Column Name:- " +arcl);
+		ar.add(arcl);
+
+	}
+
+	void combine() {
+		if (qry.contains("select")) {
+			select();
+			from();
+			/*if (qry.contains("join")) {
+
+				join();
+
+			}*/
+
+			if (qry.contains("leftjoin")) {
+				ljoin();
+			}
+
+			if (qry.contains("rightjoin")) {
+				rjoin();
+			}
+
+			if (qry.contains("outerjoin")) {
+				ojoin();
+			}
+
+			if (qry.contains("innerjoin")) {
+				ijoin();
+			}
+
+			if (qry.contains("union")) {
+				union();
+			}
+
+			if (qry.contains("where")) {
+				where();
+			}
+
+			if (qry.contains("and")) {
+				and();
+			}
+
+			if (qry.contains("on")) {
+				on();
+			}
+			if (qry.contains("=")) {
+				equal();
+			}
+
+			
+
+			System.out.println("Column Names" + ar);
+			System.out.println("Tables Names" + arl);
+			
+		}
+		
+
+	}
+
+	public static void main(String[] args) throws IOException {
+
+		SnowFlakeQuery check = new SnowFlakeQuery();
+		
+		check.combine();
+		
+		
+		/*
+		 * System.out.println("Columns Name:-  " + al.get(selectadd) + "," +
+		 * al.get(wheread)+","+al.get(orad)); System.out.println(
+		 * "Table Names:-  " + al.get(fromad));
+		 * 
+		 * System.out.println("Columns Name:-  " + al.get(onad) + "," +
+		 * al.get(byad)); System.out.println("Table Names:-  " +al.get(joinad) +
+		 * ",," + al.get(ljoinad));
+		 */
+	}
+
+}
